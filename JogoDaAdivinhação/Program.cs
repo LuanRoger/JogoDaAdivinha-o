@@ -19,10 +19,11 @@ namespace JogoDaAdivinhação
             Console.WriteLine("[ 1 ] Iniciar jogo.     [ 2 ] Sair");
             int menuEscolha = Convert.ToInt32(Console.ReadLine());
             Thread.Sleep(3000);
-
+            int vezes = 0;
             if (menuEscolha == 1)
             {
-                
+                Console.WriteLine("Quantas vezes você vai jogar?");
+                vezes = Convert.ToInt32(Console.ReadLine());
             }
             else if (menuEscolha == 2)
             {
@@ -40,9 +41,8 @@ namespace JogoDaAdivinhação
 
             // Variaveis
             int pontuacao = 0;
-            int total = 0;
             //---------------------------
-            while (true)
+            for (; vezes != -1; vezes--)
             {
                 // Gerador de números.
                 Random random = new Random();
@@ -62,9 +62,8 @@ namespace JogoDaAdivinhação
                 // Condições.
                 if (nunEscolhido == nunRandom && error == false)
                 {
-                    Console.WriteLine("Parabéns, você acertou.");
+                    Console.WriteLine($"Parabéns, você acertou. Faltam {vezes} números");
                     pontuacao = pontuacao + 1;
-                    total = total + 1;
                 }
                 else if (error == true)
                 {
@@ -73,19 +72,21 @@ namespace JogoDaAdivinhação
                 }
                 else if (nunEscolhido != nunRandom && error == false && nunEscolhido != "0")
                 {
-                    Console.WriteLine("Você errou, tente novamente.");
-                    Console.WriteLine($"O número que estava pensando era {nunRandom}");
-                    pontuacao = pontuacao - 1;
-                    total = total + 1;
+                    Console.WriteLine($"Você errou, o número que estava pensando era {nunRandom}");
+                    Console.WriteLine($"Faltam {vezes} números");
                 }
                 else if (nunEscolhido == "0")
                 {
-                    Console.WriteLine($"Sua pontuação foi de {pontuacao}/{total}");
+                    Console.WriteLine($"Sua pontuação foi de {pontuacao}/{vezes}");
                     Console.ReadKey();
                     Environment.Exit(0);
                 }
                 //-------------------------------------------------------------
             }
+            Console.WriteLine($"Sua pontuação foi de {pontuacao}/{vezes + 1}");
+            Console.ReadKey();
+            Environment.Exit(0);
+
         }
     }
 }
